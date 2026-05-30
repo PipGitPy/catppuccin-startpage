@@ -8,6 +8,8 @@ class Config {
       location: "London",
       // Temperature scale: C for Celsius, F for Fahrenheit
       scale: "C",
+      // OpenWeatherMap API key — leave empty to disable the weather widget
+      appId: "",
     },
     clock: {
       // 12-hour format with AM/PM
@@ -138,11 +140,11 @@ class Config {
    * @returns {void}
    */
   setKeybindings() {
-    document.onkeypress = ({ key }) => {
+    document.addEventListener("keydown", ({ key }) => {
       if (document.activeElement !== document.body) return;
 
-      if (Object.keys(this.config.keybindings).includes(key)) Actions.activate(this.config.keybindings[key]);
-    };
+      if (key in this.config.keybindings) Actions.activate(this.config.keybindings[key]);
+    });
   }
 
   /**
