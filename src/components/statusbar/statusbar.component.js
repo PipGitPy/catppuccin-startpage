@@ -38,7 +38,7 @@ class Statusbar extends Component {
    * @returns {string[]} Array of CSS file paths
    */
   imports() {
-    return [this.getFontResource('roboto'), this.getIconResource('material'), this.getLibraryResource('awoo')];
+    return [this.getResource('fonts', 'roboto'), this.getResource('icons', 'material'), this.getResource('libs', 'awoo')];
   }
 
   /**
@@ -241,10 +241,7 @@ class Statusbar extends Component {
     document.onkeydown = (e) => this.handleKeyPress(e);
     document.onwheel = (e) => this.handleWheelScroll(e);
     this.refs.fastlink.onclick = () => {
-      console.log(CONFIG.fastlink);
-      if (CONFIG.config.fastlink) {
-        window.location.href = CONFIG.config.fastlink;
-      }
+      if (CONFIG.fastlink) window.location.href = CONFIG.fastlink;
     };
 
     // Store current tab index before page unload
