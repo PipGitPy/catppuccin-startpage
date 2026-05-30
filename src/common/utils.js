@@ -15,10 +15,3 @@ const $ = (e, options) => {
   return elems[0];
 };
 
-/**
- * Return all child elements of a parent node as an array
- * @returns {Array<HTMLElement>} Array of child elements
- */
-Element.prototype.nodes = function () {
-  return Array.prototype.slice.call(this.children);
-};
