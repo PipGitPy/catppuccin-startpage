@@ -25,7 +25,6 @@ class Component extends HTMLElement {
       material:
         '<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">',
       materialLocal: '<link rel="stylesheet" href="src/fonts/material-icons-local.css">',
-      cryptofont: '<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/monzanifabio/cryptofont/cryptofont.css">',
       tabler: '<link rel="stylesheet" href="src/css/tabler-icons.min.css">',
     },
     /** CSS libraries and frameworks */
@@ -33,6 +32,15 @@ class Component extends HTMLElement {
       awoo: '<link rel="stylesheet" type="text/css" href="src/css/awoo.min.css">',
       awooLocal: '<link rel="stylesheet" type="text/css" href="src/css/awoo-local.min.css">',
     },
+  };
+
+  // Map of (category, name) → local-variant key, applied when CONFIG.localFonts is true
+  static localOverrides = {
+    "fonts.roboto": ["localFonts", "roboto"],
+    "fonts.nunito": ["localFonts", "nunito"],
+    "fonts.raleway": ["localFonts", "raleway"],
+    "icons.material": ["icons", "materialLocal"],
+    "libs.awoo": ["libs", "awooLocal"],
   };
 
   /**
@@ -48,39 +56,20 @@ class Component extends HTMLElement {
   }
 
   /**
-   * Get the appropriate font resource based on configuration
-   * @param {string} fontName - The name of the font (roboto, nunito, raleway)
-   * @returns {string} Font resource link
+   * Resolve a resource link for the given category/name, honouring CONFIG.localFonts.
+   * @param {string} category - One of "fonts", "icons", "libs".
+   * @param {string} name - Resource name within the category.
+   * @returns {string} HTML <link> tag for the resource.
    */
-  getFontResource(fontName) {
-    if (typeof CONFIG !== 'undefined' && CONFIG.localFonts) {
-      return this.resources.localFonts[fontName] || this.resources.fonts[fontName];
+  getResource(category, name) {
+    if (typeof CONFIG !== "undefined" && CONFIG.localFonts) {
+      const override = Component.localOverrides[`${category}.${name}`];
+      if (override) {
+        const [cat, key] = override;
+        return this.resources[cat][key];
+      }
     }
-    return this.resources.fonts[fontName];
-  }
-
-  /**
-   * Get the appropriate icon resource based on configuration
-   * @param {string} iconName - The name of the icon library (material, tabler, etc)
-   * @returns {string} Icon resource link
-   */
-  getIconResource(iconName) {
-    if (typeof CONFIG !== 'undefined' && CONFIG.localFonts && iconName === 'material') {
-      return this.resources.icons.materialLocal;
-    }
-    return this.resources.icons[iconName];
-  }
-
-  /**
-   * Get the appropriate library resource based on configuration
-   * @param {string} libName - The name of the library (awoo, etc)
-   * @returns {string} Library resource link
-   */
-  getLibraryResource(libName) {
-    if (typeof CONFIG !== 'undefined' && CONFIG.localFonts && libName === 'awoo') {
-      return this.resources.libs.awooLocal;
-    }
-    return this.resources.libs[libName];
+    return this.resources[category][name];
   }
 
   /**
@@ -108,25 +97,11 @@ class Component extends HTMLElement {
   }
 
   /**
-   * Reference an external CSS file for the component
-   * Note: External style loading is not fully supported with web components and may cause flickering
-   * @param {string} path
-   * @returns {void}
-   */
-  set stylePath(path) {
-    this.resources.style = `<link rel="preload" as="style" href="${path}" onload="this.rel='stylesheet'">`;
-  }
-
-  /**
    * Return all the imports that a component requested
    * @returns {Array<string>} imports
    */
   get getResources() {
-    const imports = this.imports();
-
-    if (this.resources?.style) imports.push(this.resources.style);
-
-    return imports;
+    return this.imports();
   }
 
   /**
