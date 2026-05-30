@@ -12,6 +12,9 @@ const default_configuration = {
   temperature: {
     location: "London",
     scale: "C",
+    // Optional OpenWeatherMap API key — get a free one at https://openweathermap.org/api
+    // Leave empty to keep the placeholder and skip the network request.
+    appId: "",
   },
   clock: {
     format: "k:i p",
@@ -44,7 +47,7 @@ const default_configuration = {
   tabs: [
     {
       name: "myself",
-      background_url: "src/img/banners/banner_09.gif",
+      background_url: "src/img/banners/banner_11.gif",
       categories: [
         {
           name: "bookmarks",
@@ -224,7 +227,7 @@ const default_configuration = {
     },
     {
       name: "chi ll",
-      background_url: "src/img/banners/banner_08.gif",
+      background_url: "src/img/banners/banner_15.gif",
       categories: [
         {
           name: "social media",
