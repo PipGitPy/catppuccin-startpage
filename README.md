@@ -55,12 +55,13 @@ A minimalistic and customisable startpage featuring the [**Catppuccin palettes**
 - Search bar with multiple engines
 - Weather widget
 - Clock widget with 12/24-hour format and multiple time zones support
+- Local fonts mode for privacy and offline use (no Google Fonts CDN)
 
 ## 🪵 Usage
 
 1. Fork this repository and clone it
 2. Optionally remove the `.github` directory, as it contains only PR templates, issue labels, etc., that are linked to this repository
-3. Create [`userconfig.js`](userconfig.example.js) based on the example file:
+3. Create [`userconfig.js`](userconfig.example.js) based on the example file: `cp userconfig.example.js userconfig.js`
    - Set the desired palette: `latte`, `frappe`, `macchiato`, or `mocha`
    - Set your location for the weather widget
    - Update the number of tabs and their banners
@@ -69,9 +70,7 @@ A minimalistic and customisable startpage featuring the [**Catppuccin palettes**
 > [!TIP]
 > You can find icons for your bookmarks using [`tabler-icons`](https://tabler.io/icons).
 >
-> To reduce icon loading times, you may install the icon [font](src/fonts) locally and activate the option `"localIcons": true` in the configuration to disable remote styles.
->
-> To improve privacy and loading performance, you can now use local fonts instead of Google Fonts CDN by setting `"localFonts": true` in your configuration. This feature stores all required fonts (Roboto, Nunito, Raleway, and Material Icons) locally in the repository, eliminating external requests to Google's servers.
+> To reduce icon loading times, you may install the icon [font](src/fonts) locally and activate the option `"localIcons": true` in the configuration to disable remote styles. Similarly, set `"localFonts": true` to serve all fonts from the repository instead of the Google Fonts CDN.
 
 ### As Homepage
 
@@ -86,10 +85,15 @@ You can use different add-ons or extensions for this.
 - If you use Firefox-based browsers: [Custom New Tab Page](https://addons.mozilla.org/en-US/firefox/addon/custom-new-tab-page/?src=search) and make sure to enable "Force links to open in the top frame (experimental)" in the extension's preferences page
 - If you use Chromium-based browsers (Brave / Chrome): [Custom New Tab URL](https://chrome.google.com/webstore/detail/custom-new-tab-url/mmjbdbjnoablegbkcklggeknkfcjkjia)
 
+## 🛠️ Development
+
+For local viewing, run `python3 -m http.server 8000` from the repository root and open `http://localhost:8000`.
+To regenerate the palette CSS, run `just build` (requires [`whiskers`](https://github.com/catppuccin/whiskers)).
+
 ### 🔎 Search
 
 <p align="center">
-  <img src="assets/preview._searchbar.png"/>
+  <img src="assets/preview.searchbar.png"/>
 </p>
 
 The search dialogue allows you to display a search bar with various search engines defined in the configuration. To open the search dialogue, simply press `s` and type your query or URL to jump to it seamlessly.
@@ -117,6 +121,8 @@ The startpage now features an enhanced clock component with:
 - Customisable formatting options
 - Locale support for regional time display
 
+The `format` string uses strftime-like tokens (`k`, `i`, `p`, `h`, `H`) — see [`src/common/strftime.js`](src/common/strftime.js) for the full reference.
+
 You can configure the clock format and add additional time zones in your `userconfig.js`:
 
 ```javascript
@@ -142,18 +148,14 @@ additionalClocks: [
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
 | <img src="src/img/banners/banner_01.gif" width=175> | <img src="src/img/banners/banner_02.gif" width=175> | <img src="src/img/banners/banner_03.gif" width=175> | <img src="src/img/banners/banner_04.gif" width=175> |
 
-| banner_05                                           | banner_06                                           | banner_07                                           | banner_08                                           |
+| banner_05                                           | banner_06                                           | banner_07                                           | banner_11                                           |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| <img src="src/img/banners/banner_05.gif" width=175> | <img src="src/img/banners/banner_06.gif" width=175> | <img src="src/img/banners/banner_07.gif" width=175> | <img src="src/img/banners/banner_08.gif" width=175> |
+| <img src="src/img/banners/banner_05.gif" width=175> | <img src="src/img/banners/banner_06.gif" width=175> | <img src="src/img/banners/banner_07.gif" width=175> | <img src="src/img/banners/banner_11.gif" width=175> |
 
-| banner_09                                           | banner_10                                           | banner_11                                           | banner_12                                           |
+| banner_12                                           | banner_13                                           | banner_14                                           | banner_15                                           |
 | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| <img src="src/img/banners/banner_09.gif" width=175> | <img src="src/img/banners/banner_10.gif" width=175> | <img src="src/img/banners/banner_11.gif" width=175> | <img src="src/img/banners/banner_12.gif" width=175> |
+| <img src="src/img/banners/banner_12.gif" width=175> | <img src="src/img/banners/banner_13.gif" width=175> | <img src="src/img/banners/banner_14.gif" width=175> | <img src="src/img/banners/banner_15.gif" width=175> |
 
-| banner_13                                           | banner_14                                           | banner_15                                           | banner_16                                           |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| <img src="src/img/banners/banner_13.gif" width=175> | <img src="src/img/banners/banner_14.gif" width=175> | <img src="src/img/banners/banner_15.gif" width=175> | <img src="src/img/banners/banner_16.gif" width=175> |
-
-| banner_17                                           | banner_18                                           |
-| --------------------------------------------------- | --------------------------------------------------- |
-| <img src="src/img/banners/banner_17.gif" width=175> | <img src="src/img/banners/banner_18.gif" width=175> |
+| banner_16                                           | banner_17                                           | banner_18                                           |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| <img src="src/img/banners/banner_16.gif" width=175> | <img src="src/img/banners/banner_17.gif" width=175> | <img src="src/img/banners/banner_18.gif" width=175> |
