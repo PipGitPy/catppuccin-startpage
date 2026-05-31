@@ -3,11 +3,9 @@
 Thumbs.db
 
 # Editors
+.zed/
 .idea/
 .vscode/
-.zed
-*.swp
-*.swo
 
 # Env
 .env
@@ -16,7 +14,6 @@ Thumbs.db
 
 # Logs
 *.log
-.log/
 
 # Misc
 .cache/
