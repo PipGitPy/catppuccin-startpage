@@ -10,6 +10,10 @@
   description: Indicates an unexpected problem or unintended behavior
   color: D93F0B
 
+- name: "type: security"
+  description: Indicates a security vulnerability or hardening request
+  color: B60205
+
 - name: "type: documentation"
   description: Indicates a need for improvement or addition to documentation
   color: 006B75
